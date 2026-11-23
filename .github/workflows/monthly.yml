@@ -1,0 +1,69 @@
+# Monthly / on-release full rescoring plus a history snapshot.
+# Local staging file only: nothing is enabled or published from this
+# repository yet. The job commits and pushes NOTHING; updated files are
+# uploaded as a build artifact for a human to review.
+name: monthly
+on:
+  schedule:
+    - cron: "0 5 1 * *"  # 1st of the month 05:00 UTC
+  release:
+    types: [published]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  rescore:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout leaderboard repo
+        uses: actions/checkout@v4
+        with:
+          path: agentordeal-leaderboard
+      - name: Checkout runner repo
+        uses: actions/checkout@v4
+        with:
+          repository: saloni-garg/agent-ordeal
+          path: agent-ordeal
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install the runner
+        run: pip install ./agent-ordeal
+      - name: Full rescoring of all configured targets
+        env:
+          AGENTORDEAL_LLM_API_KEY: ${{ secrets.AGENTORDEAL_LLM_API_KEY }}
+          AGENTORDEAL_LLM_MODEL: ${{ vars.AGENTORDEAL_LLM_MODEL }}
+        run: |
+          cd agent-ordeal
+          python leaderboard/run_leaderboard.py --export ../agentordeal-leaderboard/scores.json
+      - name: Append history lines, snapshot history, and regenerate the site
+        run: |
+          cd agentordeal-leaderboard
+          python - <<'PY'
+          import json, os, shutil
+          data = json.load(open("scores.json"))
+          os.makedirs("history", exist_ok=True)
+          for e in data["entries"]:
+              if e.get("status") != "scored":
+                  continue
+              line = {"date": e.get("run_date"), "score": e.get("score"), "grade": e.get("grade"),
+                      "battery_version": e.get("battery_version") or data.get("battery_version"),
+                      "citation": e.get("citation"), "scorecard": e.get("scorecard")}
+              with open(os.path.join("history", e["slug"] + ".jsonl"), "a") as f:
+                  f.write(json.dumps(line) + "\n")
+          snap = os.path.join("history", "snapshots")
+          os.makedirs(snap, exist_ok=True)
+          for name in os.listdir("history"):
+              if name.endswith(".jsonl"):
+                  shutil.copyfile(os.path.join("history", name), os.path.join(snap, name))
+          PY
+          python generate.py
+      - name: Upload updated leaderboard files and history snapshot
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: leaderboard-monthly
+          path: |
+            agentordeal-leaderboard/scores.json
+            agentordeal-leaderboard/index.html
+            agentordeal-leaderboard/history/

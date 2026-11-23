@@ -1,0 +1,63 @@
+# Nightly rescoring of demo + reference targets.
+# Local staging file only: nothing is enabled or published from this
+# repository yet. The job commits and pushes NOTHING; updated files are
+# uploaded as a build artifact for a human to review.
+name: nightly
+on:
+  schedule:
+    - cron: "0 3 * * *"  # nightly 03:00 UTC
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  rescore:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout leaderboard repo
+        uses: actions/checkout@v4
+        with:
+          path: agentordeal-leaderboard
+      - name: Checkout runner repo
+        uses: actions/checkout@v4
+        with:
+          repository: saloni-garg/agent-ordeal
+          path: agent-ordeal
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install the runner
+        run: pip install ./agent-ordeal
+      - name: Rescore demo and reference targets
+        env:
+          AGENTORDEAL_LLM_API_KEY: ${{ secrets.AGENTORDEAL_LLM_API_KEY }}
+          AGENTORDEAL_LLM_MODEL: ${{ vars.AGENTORDEAL_LLM_MODEL }}
+        run: |
+          cd agent-ordeal
+          python leaderboard/run_leaderboard.py --only llm-reference --export ../agentordeal-leaderboard/scores.json || true
+          python leaderboard/run_leaderboard.py --only mcp-filesystem-server --export ../agentordeal-leaderboard/scores.json || true
+      - name: Append history lines and regenerate the site
+        run: |
+          cd agentordeal-leaderboard
+          python - <<'PY'
+          import json, os
+          data = json.load(open("scores.json"))
+          os.makedirs("history", exist_ok=True)
+          for e in data["entries"]:
+              if e.get("status") != "scored":
+                  continue
+              line = {"date": e.get("run_date"), "score": e.get("score"), "grade": e.get("grade"),
+                      "battery_version": e.get("battery_version") or data.get("battery_version"),
+                      "citation": e.get("citation"), "scorecard": e.get("scorecard")}
+              with open(os.path.join("history", e["slug"] + ".jsonl"), "a") as f:
+                  f.write(json.dumps(line) + "\n")
+          PY
+          python generate.py
+      - name: Upload updated leaderboard files
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: leaderboard-nightly
+          path: |
+            agentordeal-leaderboard/scores.json
+            agentordeal-leaderboard/index.html
+            agentordeal-leaderboard/history/

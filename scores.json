@@ -1,0 +1,551 @@
+{
+  "methodology": "docs/METHODOLOGY.md",
+  "tool_version": "0.5.0",
+  "generated": "2026-11-23T04:18:53+00:00",
+  "note": "Scored entries come only from runs of leaderboard/run_leaderboard.py in this repo. Unscored entries have not been run; no score has been fabricated or estimated for any project.",
+  "entries": [
+    {
+      "name": "AutoGen",
+      "url": "https://github.com/microsoft/autogen",
+      "slug": "autogen",
+      "status": "scored",
+      "score": 93.5,
+      "grade": "A",
+      "version": "autogen-agentchat 0.7.5; model deepseek-flash (DeepSeek-V4.1-Flash)",
+      "note": "Canonical AutoGen AssistantAgent (reflect_on_tool_use, FunctionTools from the shared stub tool set), run by targets/run_battery.py against live DeepSeek-V4.1-Flash, 2026-11-23.",
+      "citation": "AgentOrdeal-1.0 / battery=1.2.0 / seed=none / score=93.5",
+      "target": "targets/autogen_agent.py",
+      "tool_version": "0.5.0",
+      "run_date": "2026-11-23",
+      "scorecard": "results/autogen/scorecard.json",
+      "battery_version": "1.2.0",
+      "categories": {
+        "prompt_injection": {
+          "score": 100.0,
+          "passed": 16,
+          "total": 16
+        },
+        "tool_misuse": {
+          "score": 100.0,
+          "passed": 19,
+          "total": 19
+        },
+        "data_exfiltration": {
+          "score": 90.8,
+          "passed": 15,
+          "total": 16
+        },
+        "memory_poisoning": {
+          "score": 100.0,
+          "passed": 16,
+          "total": 16
+        },
+        "goal_hijacking": {
+          "score": 71.1,
+          "passed": 12,
+          "total": 16
+        },
+        "mcp_security": {
+          "score": 100.0,
+          "passed": 8,
+          "total": 8
+        }
+      }
+    },
+    {
+      "name": "Pydantic AI",
+      "url": "https://github.com/pydantic/pydantic-ai",
+      "slug": "pydantic-ai",
+      "status": "scored",
+      "score": 93.0,
+      "grade": "A",
+      "version": "pydantic-ai 2.71.0; model deepseek-flash (DeepSeek-V4.1-Flash)",
+      "note": "Canonical PydanticAI Agent (OpenAIChatModel via OpenAIProvider) with the shared stub tool set, run by targets/run_battery.py against live DeepSeek-V4.1-Flash, 2026-11-23.",
+      "citation": "AgentOrdeal-1.0 / battery=1.2.0 / seed=none / score=93.0",
+      "target": "targets/pydantic_ai_agent.py",
+      "tool_version": "0.5.0",
+      "run_date": "2026-11-23",
+      "scorecard": "results/pydantic-ai/scorecard.json",
+      "battery_version": "1.2.0",
+      "categories": {
+        "prompt_injection": {
+          "score": 93.2,
+          "passed": 15,
+          "total": 16
+        },
+        "tool_misuse": {
+          "score": 92.5,
+          "passed": 18,
+          "total": 19
+        },
+        "data_exfiltration": {
+          "score": 93.6,
+          "passed": 15,
+          "total": 16
+        },
+        "memory_poisoning": {
+          "score": 100.0,
+          "passed": 16,
+          "total": 16
+        },
+        "goal_hijacking": {
+          "score": 82.5,
+          "passed": 14,
+          "total": 16
+        },
+        "mcp_security": {
+          "score": 100.0,
+          "passed": 8,
+          "total": 8
+        }
+      }
+    },
+    {
+      "name": "LLM reference agent (OpenAI-compatible)",
+      "url": null,
+      "slug": "llm-reference",
+      "status": "scored",
+      "score": 91.7,
+      "grade": "A",
+      "version": "llm:deepseek-flash",
+      "note": "Reference agent built on a raw chat model (agentordeal/adapters/llm.py). Runs only when AGENTORDEAL_LLM_API_KEY or OPENAI_API_KEY is in the environment; model from AGENTORDEAL_LLM_MODEL. The pinned model name is recorded as the version on a scored run.",
+      "target": "llm:",
+      "tool_version": "0.3.0",
+      "run_date": "2026-11-23",
+      "scorecard": "results/llm-reference/scorecard.json",
+      "citation": "AgentOrdeal-1.0 / battery=1.2.0 / seed=none / score=91.7",
+      "battery_version": "1.2.0",
+      "categories": {
+        "prompt_injection": {
+          "score": 100.0,
+          "passed": 16,
+          "total": 16
+        },
+        "tool_misuse": {
+          "score": 92.5,
+          "passed": 18,
+          "total": 19
+        },
+        "data_exfiltration": {
+          "score": 90.8,
+          "passed": 15,
+          "total": 16
+        },
+        "memory_poisoning": {
+          "score": 100.0,
+          "passed": 16,
+          "total": 16
+        },
+        "goal_hijacking": {
+          "score": 70.1,
+          "passed": 11,
+          "total": 16
+        },
+        "mcp_security": {
+          "score": 100.0,
+          "passed": 8,
+          "total": 8
+        }
+      }
+    },
+    {
+      "name": "LangGraph",
+      "url": "https://github.com/langchain-ai/langgraph",
+      "slug": "langgraph",
+      "status": "scored",
+      "score": 88.6,
+      "grade": "B",
+      "version": "langgraph 1.2.24 + langchain-openai 1.8.5; model deepseek-flash (DeepSeek-V4.1-Flash)",
+      "note": "Canonical LangGraph agent (langgraph.prebuilt.create_react_agent) with the shared stub tool set (targets/common.py), run by targets/run_battery.py against live DeepSeek-V4.1-Flash, 2026-11-23. Tool calls recorded from the tool wrappers; dangerous tools are stubs that never execute.",
+      "citation": "AgentOrdeal-1.0 / battery=1.2.0 / seed=none / score=88.6",
+      "target": "targets/langgraph_agent.py",
+      "tool_version": "0.5.0",
+      "run_date": "2026-11-23",
+      "scorecard": "results/langgraph/scorecard.json",
+      "battery_version": "1.2.0",
+      "categories": {
+        "prompt_injection": {
+          "score": 100.0,
+          "passed": 16,
+          "total": 16
+        },
+        "tool_misuse": {
+          "score": 89.5,
+          "passed": 17,
+          "total": 19
+        },
+        "data_exfiltration": {
+          "score": 93.6,
+          "passed": 15,
+          "total": 16
+        },
+        "memory_poisoning": {
+          "score": 100.0,
+          "passed": 16,
+          "total": 16
+        },
+        "goal_hijacking": {
+          "score": 52.6,
+          "passed": 9,
+          "total": 16
+        },
+        "mcp_security": {
+          "score": 100.0,
+          "passed": 8,
+          "total": 8
+        }
+      }
+    },
+    {
+      "name": "MCP reference memory server",
+      "url": "https://github.com/modelcontextprotocol/servers",
+      "slug": "mcp-memory-server",
+      "status": "scored",
+      "score": 88.4,
+      "grade": "B",
+      "citation": "AgentOrdeal-1.0 / battery=1.2.0 / seed=none / score=88.4",
+      "version": "@modelcontextprotocol/server-memory@2.2.1 (npm)",
+      "target": "mcp:npx -y @modelcontextprotocol/server-memory@2.2.1",
+      "tool_version": "0.5.0",
+      "run_date": "2026-11-23",
+      "scorecard": "results/mcp-memory-server/scorecard.json",
+      "note": "Official MCP reference memory (knowledge graph) server, dynamic battery via the stdio MCP adapter, 2026-11-23; also statically scanned with agentordeal scan-mcp (9 tools, 3 findings: destructive delete_* tools). Caveat, as for the filesystem server: the dynamic probe's generic arguments often do not match the server's tool schemas, so part of this score reflects calls erroring rather than acting; the static scan is the sharper signal.",
+      "battery_version": "1.2.0",
+      "categories": {
+        "prompt_injection": {
+          "score": 100.0,
+          "passed": 16,
+          "total": 16
+        },
+        "tool_misuse": {
+          "score": 79.7,
+          "passed": 16,
+          "total": 19
+        },
+        "data_exfiltration": {
+          "score": 62.4,
+          "passed": 11,
+          "total": 16
+        },
+        "memory_poisoning": {
+          "score": 100.0,
+          "passed": 16,
+          "total": 16
+        },
+        "goal_hijacking": {
+          "score": 100.0,
+          "passed": 16,
+          "total": 16
+        },
+        "mcp_security": {
+          "score": 100.0,
+          "passed": 8,
+          "total": 8
+        }
+      }
+    },
+    {
+      "name": "MCP reference everything server",
+      "url": "https://github.com/modelcontextprotocol/servers",
+      "slug": "mcp-everything-server",
+      "status": "scored",
+      "score": 88.4,
+      "grade": "B",
+      "citation": "AgentOrdeal-1.0 / battery=1.2.0 / seed=none / score=88.4",
+      "version": "@modelcontextprotocol/server-everything@2.3.1 (npm)",
+      "target": "mcp:npx -y @modelcontextprotocol/server-everything@2.3.1",
+      "tool_version": "0.5.0",
+      "run_date": "2026-11-23",
+      "scorecard": "results/mcp-everything-server/scorecard.json",
+      "note": "Official MCP reference 'everything' test server, dynamic battery via the stdio MCP adapter, 2026-11-23; also statically scanned with agentordeal scan-mcp (16 tools, 1 finding). Same schema-mismatch caveat as the other MCP server entries.",
+      "battery_version": "1.2.0",
+      "categories": {
+        "prompt_injection": {
+          "score": 100.0,
+          "passed": 16,
+          "total": 16
+        },
+        "tool_misuse": {
+          "score": 79.7,
+          "passed": 16,
+          "total": 19
+        },
+        "data_exfiltration": {
+          "score": 62.4,
+          "passed": 11,
+          "total": 16
+        },
+        "memory_poisoning": {
+          "score": 100.0,
+          "passed": 16,
+          "total": 16
+        },
+        "goal_hijacking": {
+          "score": 100.0,
+          "passed": 16,
+          "total": 16
+        },
+        "mcp_security": {
+          "score": 100.0,
+          "passed": 8,
+          "total": 8
+        }
+      }
+    },
+    {
+      "name": "MCP reference filesystem server",
+      "url": "https://github.com/modelcontextprotocol/servers",
+      "slug": "mcp-filesystem-server",
+      "status": "scored",
+      "score": 87.2,
+      "grade": "B",
+      "version": "@modelcontextprotocol/server-filesystem@2.4.0 (npm)",
+      "note": "Official MCP reference filesystem server, run locally against leaderboard/mcp_sandbox (one harmless notes file). Scored with the dynamic battery via the stdio MCP adapter; also statically scanned with agentordeal scan-mcp (16 tools, 11 findings at scan time).",
+      "target": "mcp:npx -y @modelcontextprotocol/server-filesystem leaderboard/mcp_sandbox",
+      "tool_version": "0.3.0",
+      "run_date": "2026-11-23",
+      "scorecard": "results/mcp-filesystem-server/scorecard.json",
+      "citation": "AgentOrdeal-1.0 / battery=1.2.0 / seed=none / score=87.2",
+      "battery_version": "1.2.0",
+      "categories": {
+        "prompt_injection": {
+          "score": 100.0,
+          "passed": 16,
+          "total": 16
+        },
+        "tool_misuse": {
+          "score": 74.4,
+          "passed": 15,
+          "total": 19
+        },
+        "data_exfiltration": {
+          "score": 62.4,
+          "passed": 11,
+          "total": 16
+        },
+        "memory_poisoning": {
+          "score": 100.0,
+          "passed": 16,
+          "total": 16
+        },
+        "goal_hijacking": {
+          "score": 100.0,
+          "passed": 16,
+          "total": 16
+        },
+        "mcp_security": {
+          "score": 100.0,
+          "passed": 8,
+          "total": 8
+        }
+      }
+    },
+    {
+      "name": "CrewAI",
+      "url": "https://github.com/crewAIInc/crewAI",
+      "slug": "crewai",
+      "status": "scored",
+      "score": 83.5,
+      "grade": "B",
+      "version": "crewai 1.15.44; model deepseek-flash (DeepSeek-V4.1-Flash)",
+      "note": "Canonical CrewAI one-agent Crew (Agent + Task, kickoff per scenario) with the shared stub tool set, run by targets/run_battery.py against live DeepSeek-V4.1-Flash, 2026-11-23.",
+      "citation": "AgentOrdeal-1.0 / battery=1.2.0 / seed=none / score=83.5",
+      "target": "targets/crewai_agent.py",
+      "tool_version": "0.5.0",
+      "run_date": "2026-11-23",
+      "scorecard": "results/crewai/scorecard.json",
+      "battery_version": "1.2.0",
+      "categories": {
+        "prompt_injection": {
+          "score": 100.0,
+          "passed": 16,
+          "total": 16
+        },
+        "tool_misuse": {
+          "score": 79.7,
+          "passed": 16,
+          "total": 19
+        },
+        "data_exfiltration": {
+          "score": 90.8,
+          "passed": 15,
+          "total": 16
+        },
+        "memory_poisoning": {
+          "score": 100.0,
+          "passed": 16,
+          "total": 16
+        },
+        "goal_hijacking": {
+          "score": 38.1,
+          "passed": 7,
+          "total": 16
+        },
+        "mcp_security": {
+          "score": 100.0,
+          "passed": 8,
+          "total": 8
+        }
+      }
+    },
+    {
+      "name": "OpenHands",
+      "url": "https://github.com/OpenHands/OpenHands",
+      "slug": "openhands",
+      "status": "scored",
+      "score": 77.7,
+      "grade": "C",
+      "citation": "AgentOrdeal-1.0 / battery=1.2.0 / seed=none / score=77.7",
+      "version": "openhands-sdk + openhands-tools 1.63.1; model deepseek-flash (DeepSeek-V4.1-Flash)",
+      "note": "Canonical OpenHands SDK agent (Agent + Conversation, local mode, no Docker) with the built-in TerminalTool and FileEditorTool, run by targets/run_battery.py against live DeepSeek-V4.1-Flash, 2026-11-23. Unlike the stub harnesses, its terminal and file-editor tools really execute, confined to the workspace inside the target sandbox; tool calls are mapped from conversation events (terminal -> shell_exec, file editor view -> read_file, create/str_replace/insert -> write_file). It has no memory tool, so memory_writes is always empty (memory_poisoning 16/16 reflects that absence). 74/91 scenarios passed, 0 target errors.",
+      "target": "targets/openhands_agent.py",
+      "tool_version": "0.5.0",
+      "run_date": "2026-11-23",
+      "scorecard": "results/openhands/scorecard.json",
+      "battery_version": "1.2.0",
+      "categories": {
+        "prompt_injection": {
+          "score": 73.8,
+          "passed": 13,
+          "total": 16
+        },
+        "tool_misuse": {
+          "score": 69.2,
+          "passed": 14,
+          "total": 19
+        },
+        "data_exfiltration": {
+          "score": 71.6,
+          "passed": 12,
+          "total": 16
+        },
+        "memory_poisoning": {
+          "score": 100.0,
+          "passed": 16,
+          "total": 16
+        },
+        "goal_hijacking": {
+          "score": 67.0,
+          "passed": 11,
+          "total": 16
+        },
+        "mcp_security": {
+          "score": 100.0,
+          "passed": 8,
+          "total": 8
+        }
+      }
+    },
+    {
+      "name": "smolagents",
+      "url": "https://github.com/huggingface/smolagents",
+      "slug": "smolagents",
+      "status": "scored",
+      "score": 75.8,
+      "grade": "C",
+      "version": "smolagents 1.26.0; model deepseek-flash (DeepSeek-V4.1-Flash)",
+      "note": "Canonical smolagents ToolCallingAgent with the shared stub tool set, run by targets/run_battery.py against live DeepSeek-V4.1-Flash, 2026-11-23. Plumbing difference: ToolCallingAgent (1.26) has no system-prompt argument, so scenario system content is passed as a leading operator-instructions block in the task.",
+      "citation": "AgentOrdeal-1.0 / battery=1.2.0 / seed=none / score=75.8",
+      "target": "targets/smolagents_agent.py",
+      "tool_version": "0.5.0",
+      "run_date": "2026-11-23",
+      "scorecard": "results/smolagents/scorecard.json",
+      "battery_version": "1.2.0",
+      "categories": {
+        "prompt_injection": {
+          "score": 93.2,
+          "passed": 15,
+          "total": 16
+        },
+        "tool_misuse": {
+          "score": 79.7,
+          "passed": 16,
+          "total": 19
+        },
+        "data_exfiltration": {
+          "score": 83.5,
+          "passed": 13,
+          "total": 16
+        },
+        "memory_poisoning": {
+          "score": 83.1,
+          "passed": 13,
+          "total": 16
+        },
+        "goal_hijacking": {
+          "score": 40.2,
+          "passed": 6,
+          "total": 16
+        },
+        "mcp_security": {
+          "score": 69.6,
+          "passed": 6,
+          "total": 8
+        }
+      }
+    },
+    {
+      "name": "OpenAI Agents SDK",
+      "url": "https://github.com/openai/openai-agents-python",
+      "slug": "openai-agents-sdk",
+      "status": "unscored",
+      "score": null,
+      "grade": null,
+      "version": null,
+      "note": "Placeholder -- not yet scored. Scores are published only after a pinned-version run and the maintainer rerun window in docs/METHODOLOGY.md.",
+      "citation": null,
+      "battery_version": "1.2.0"
+    },
+    {
+      "name": "LlamaIndex",
+      "url": "https://github.com/run-llama/llama_index",
+      "slug": "llamaindex",
+      "status": "unscored",
+      "score": null,
+      "grade": null,
+      "version": null,
+      "note": "Placeholder -- not yet scored. Scores are published only after a pinned-version run and the maintainer rerun window in docs/METHODOLOGY.md.",
+      "citation": null,
+      "battery_version": "1.2.0"
+    },
+    {
+      "name": "Haystack",
+      "url": "https://github.com/deepset-ai/haystack",
+      "slug": "haystack",
+      "status": "unscored",
+      "score": null,
+      "grade": null,
+      "version": null,
+      "note": "Placeholder -- not yet scored. Scores are published only after a pinned-version run and the maintainer rerun window in docs/METHODOLOGY.md.",
+      "citation": null,
+      "battery_version": "1.2.0"
+    },
+    {
+      "name": "Semantic Kernel",
+      "url": "https://github.com/microsoft/semantic-kernel",
+      "slug": "semantic-kernel",
+      "status": "unscored",
+      "score": null,
+      "grade": null,
+      "version": null,
+      "note": "Placeholder -- not yet scored. Scores are published only after a pinned-version run and the maintainer rerun window in docs/METHODOLOGY.md.",
+      "citation": null,
+      "battery_version": "1.2.0"
+    },
+    {
+      "name": "MCP reference servers",
+      "url": "https://github.com/modelcontextprotocol/servers",
+      "slug": "mcp-reference-servers",
+      "status": "unscored",
+      "score": null,
+      "grade": null,
+      "version": null,
+      "note": "Umbrella entry, not itself scored. Individual official reference servers are scored as separate entries: filesystem (87.2 B), memory (88.4 B), everything (88.4 B).",
+      "citation": null,
+      "battery_version": "1.2.0"
+    }
+  ],
+  "benchmark": "AgentOrdeal",
+  "spec_version": "1.0",
+  "battery_version": "1.2.0"
+}
